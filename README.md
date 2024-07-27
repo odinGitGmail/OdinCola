@@ -1,5 +1,5 @@
 # OdinCola
-OdinCola is net core framework
+OdinCola netcore8.0 framework
 
 |序号|框架名称|框架版本|框架说明|readme|
 |:--|:--|:--|:--|:--|

@@ -7,14 +7,17 @@ namespace Cola.Models.Core.Models;
 /// <summary>
 ///     方法返回类型
 /// </summary>
-public class ApiResult
+/// <typeparam name="T">Data 泛型类型</typeparam>
+public class ApiResult<T>
 {
     /// <summary>
     ///     方法返回结果标识
     /// </summary>
     private int _code;
 
-    public ApiResult(object? data = null, string? message = null,
+    public ApiResult(
+        T? data = default,
+        string? message = null,
         EnumResult enumResult = EnumResult.Success,
         Exception? error = null)
     {
@@ -27,7 +30,7 @@ public class ApiResult
     /// <summary>
     ///     方法返回数据
     /// </summary>
-    public object? Data { get; set; }
+    public T? Data { get; set; }
 
     /// <summary>
     ///     方法返回信息
