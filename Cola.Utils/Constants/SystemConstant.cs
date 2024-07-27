@@ -83,5 +83,15 @@ public class SystemConstant
 
     #endregion"
 
+    #region NoSql配置
+
+    #region Mongo
+
+    public const string CONSTANT_COLANOSQL_MONGO_SECTION = "ColaMongo";
+
+    #endregion
+
+    #endregion
+
     #endregion
 }
