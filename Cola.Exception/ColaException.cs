@@ -6,10 +6,12 @@ namespace Cola.Exception;
 public class ColaException : IColaException
 {
     private readonly IColaLogs? _colaLog;
+    private readonly IColaConsole? _colaConsole;
 
-    public ColaException(IColaLogs log)
+    public ColaException(IColaLogs log, IColaConsole colaConsole)
     {
         _colaLog = log;
+        _colaConsole = colaConsole;
     }
 
     /// <summary>
@@ -62,7 +64,7 @@ public class ColaException : IColaException
         if (_colaLog != null)
             _colaLog!.Error(ex);
         else
-            ColaConsole.WriteException(ex);
+            _colaConsole!.WriteException(ex);
         return ex;
     }
 
@@ -76,7 +78,7 @@ public class ColaException : IColaException
         if (_colaLog != null)
             _colaLog!.Error(ex);
         else
-            ColaConsole.WriteException(ex);
+            _colaConsole!.WriteException(ex);
         return ex;
     }
 }

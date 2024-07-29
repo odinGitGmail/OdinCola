@@ -1,4 +1,4 @@
-using Cola.Console;
+﻿using Cola.Console;
 using Cola.Models.Core.Models.ColaMongo;
 using Cola.Utils.Constants;
 using Microsoft.Extensions.Configuration;
@@ -9,23 +9,25 @@ namespace Cola.NoSql.ColaMongo;
 public static class ColaMongoInject
 {
     /// <summary>
-    ///     inject SnowFlake
+    ///     inject ColaMongoInject
     /// </summary>
     /// <param name="services">IServiceCollection</param>
     /// <param name="config">config</param>
+    /// <param name="colaConsole">colaConsole</param>
     /// <returns>IServiceCollection</returns>
     public static IServiceCollection AddSingletonColaMongo(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration config)
     {
         var mongoDbConfig = config.GetSection(SystemConstant.CONSTANT_COLANOSQL_MONGO_SECTION).Get<MongoDbConfig>();
         services.AddSingleton<IColaMongo>(new ColaMongo(mongoDbConfig!));
-        ColaConsole.WriteInfo("注入类型【 IColaMongo, ColaMongo 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaMongo, ColaMongo 】");
         return services;
     }
-    
+
     /// <summary>
-    ///     inject SnowFlake
+    ///     inject ColaMongoInject
     /// </summary>
     /// <param name="services">IServiceCollection</param>
     /// <param name="action">action</param>
@@ -37,7 +39,8 @@ public static class ColaMongoInject
         var opts = new MongoDbConfig();
         action(opts);
         services.AddSingleton<IColaMongo>(new ColaMongo(opts));
-        ColaConsole.WriteInfo("注入类型【 IColaMongo, ColaMongo 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaMongo, ColaMongo 】");
         return services;
     }
 }

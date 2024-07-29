@@ -11,6 +11,7 @@
       <PackageReference Include="Microsoft.AspNetCore.Routing.Abstractions" Version="2.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
       <PackageReference Include="SqlSugarCore" Version="5.1.4.146" />
     </ItemGroup>
@@ -18,6 +19,9 @@
     <ItemGroup>
       <ProjectReference Include="..\Cola.Cache\Cola.Cache.csproj" />
       <ProjectReference Include="..\Cola.Exception\Cola.Exception.csproj" />
+      <ProjectReference Include="..\Cola.Log\Cola.Log.csproj" />
+      <ProjectReference Include="..\Cola.Models.Core\Cola.Models.Core.csproj" />
+      <ProjectReference Include="..\Cola.Utils\Cola.Utils.csproj" />
     </ItemGroup>
 
 </Project>

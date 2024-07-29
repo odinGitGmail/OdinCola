@@ -31,6 +31,7 @@ public static class ColaRedisInject
 
     private static IServiceCollection InjectCache(IServiceCollection services, CacheConfigOption cacheConfig)
     {
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
         if (cacheConfig.CacheType == CacheType.NoCache.ToInt())
         {
             return services;
@@ -38,22 +39,22 @@ public static class ColaRedisInject
         if (cacheConfig.CacheType == CacheType.Hybrid.ToInt())
         {
             services.AddSingleton<IColaRedisCache>(provider => new ColaRedis(cacheConfig));
-            ColaConsole.WriteInfo("注入类型【 ColaRedis, IColaRedisCache 】");
+            colaConsole!.WriteInfo("注入类型【 ColaRedis, IColaRedisCache 】");
             services.AddSingleton<IColaMemoryCache>(provider => new ColaMemoryCache(cacheConfig));
-            ColaConsole.WriteInfo("注入类型【 ColaMemoryCache, IColaMemoryCache 】");
+            colaConsole!.WriteInfo("注入类型【 ColaMemoryCache, IColaMemoryCache 】");
             services.AddSingleton<IColaHybridCache, ColaHybridCache>();
             services.AddSingleton<IColaHybridCache>(s => ColaHybridCache.Create(s));
-            ColaConsole.WriteInfo("注入类型【 ColaHybridCache, IColaHybridCache 】");
+            colaConsole!.WriteInfo("注入类型【 ColaHybridCache, IColaHybridCache 】");
         }
         else if (cacheConfig.CacheType == CacheType.Redis.ToInt())
         {
             services.AddSingleton<IColaRedisCache>(provider => new ColaRedis(cacheConfig));
-            ColaConsole.WriteInfo("注入类型【 ColaRedis, IColaRedisCache 】");
+            colaConsole!.WriteInfo("注入类型【 ColaRedis, IColaRedisCache 】");
         }
         else if (cacheConfig.CacheType == CacheType.InMemory.ToInt())
         {
             services.AddSingleton<IColaMemoryCache>(provider => new ColaMemoryCache(cacheConfig));
-            ColaConsole.WriteInfo("注入类型【 ColaMemoryCache, IColaMemoryCache 】");
+            colaConsole!.WriteInfo("注入类型【 ColaMemoryCache, IColaMemoryCache 】");
         }
         return services;
     }

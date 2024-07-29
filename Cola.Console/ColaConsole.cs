@@ -2,31 +2,15 @@
 
 namespace Cola.Console;
 
-public class ColaConsole
+public class ColaConsole : IColaConsole
 {
-    private static string TimestampForma = "[yyyy-MM-dd HH:mm:ss] ";
-    
+    private string TimestampForma = "[yyyy-MM-dd HH:mm:ss] ";
+
     /// <summary>
     ///  BackgroundColor:Green  ForegroundColor: White
     /// </summary> 
     /// <param name="str"></param>
-    public static void WriteInfo(Object str)
-    {
-        var dt = DateTime.Now.ToString(TimestampForma);
-        System.Console.ForegroundColor = ConsoleColor.Yellow;
-        System.Console.WriteLine(dt + str);
-        System.Console.ResetColor();
-    }
-    
-    public static void WriteInfo(int str)
-    {
-        var dt = DateTime.Now.ToString(TimestampForma);
-        System.Console.ForegroundColor = ConsoleColor.Yellow;
-        System.Console.WriteLine(dt + str);
-        System.Console.ResetColor();
-    }
-    
-    public static void WriteInfo(string str)
+    public void WriteInfo(Object str)
     {
         var dt = DateTime.Now.ToString(TimestampForma);
         System.Console.ForegroundColor = ConsoleColor.Yellow;
@@ -34,7 +18,23 @@ public class ColaConsole
         System.Console.ResetColor();
     }
 
-    public static void WriteInfo(string format, params object?[]? arg)
+    public void WriteInfo(int str)
+    {
+        var dt = DateTime.Now.ToString(TimestampForma);
+        System.Console.ForegroundColor = ConsoleColor.Yellow;
+        System.Console.WriteLine(dt + str);
+        System.Console.ResetColor();
+    }
+
+    public void WriteInfo(string str)
+    {
+        var dt = DateTime.Now.ToString(TimestampForma);
+        System.Console.ForegroundColor = ConsoleColor.Yellow;
+        System.Console.WriteLine(dt + str);
+        System.Console.ResetColor();
+    }
+
+    public void WriteInfo(string format, params object?[]? arg)
     {
         var dt = DateTime.Now.ToString(TimestampForma);
         System.Console.ForegroundColor = ConsoleColor.Yellow;
@@ -46,7 +46,7 @@ public class ColaConsole
     /// BackgroundColor:DarkRed  ForegroundColor: White
     /// </summary>
     /// <param name="ex"></param>
-    public static void WriteException(Exception ex)
+    public void WriteException(Exception ex)
     {
         var dt = DateTime.Now.ToString(TimestampForma);
         System.Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -55,7 +55,7 @@ public class ColaConsole
         System.Console.ResetColor();
     }
 
-    public static void WriteException(string format)
+    public void WriteException(string format)
     {
         var dt = DateTime.Now.ToString(TimestampForma);
         System.Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -64,7 +64,7 @@ public class ColaConsole
         System.Console.ResetColor();
     }
 
-    public static void WriteException(string format, params object?[]? arg)
+    public void WriteException(string format, params object?[]? arg)
     {
         var dt = DateTime.Now.ToString(TimestampForma);
         System.Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -80,7 +80,7 @@ public class ColaConsole
     /// <param name="foregroundColor"></param>
     /// <param name="backgroundColor"></param>
     /// <param name="arg"></param>
-    public static void WriteLine(string format, ConsoleColor foregroundColor = ConsoleColor.White,
+    public void WriteLine(string format, ConsoleColor foregroundColor = ConsoleColor.White,
         ConsoleColor backgroundColor = ConsoleColor.Black, params object?[]? arg)
     {
         var dt = DateTime.Now.ToString(TimestampForma);
@@ -90,7 +90,7 @@ public class ColaConsole
         System.Console.ResetColor();
     }
 
-    public static void WriteLine(string format, ConsoleColor foregroundColor = ConsoleColor.White,
+    public void WriteLine(string format, ConsoleColor foregroundColor = ConsoleColor.White,
         ConsoleColor backgroundColor = ConsoleColor.Black)
     {
         var dt = DateTime.Now.ToString(TimestampForma);

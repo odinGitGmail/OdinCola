@@ -22,12 +22,14 @@ public class TenantContext : ITenantContext
     private readonly IColaCacheBase? _colaCache;
     private static readonly ConcurrentDictionary<int, SqlSugarClient> DbClients = new();
     private readonly IColaException _colaException;
+    private readonly IColaConsole _colaConsole;
     private readonly ColaEfConfigOption? _efConfig;
 
     private TenantContext(ITenantResolutionStrategy tenantResolutionStrategy,
         IConfiguration configuration,
         IColaCacheBase? colaCache,
         IColaException colaException,
+        IColaConsole colaConsole,
         List<AopOnLogExecutingModel>? aopOnLogExecutingModels,
         List<AopOnErrorModel>? aopOnErrorModels,
         List<GlobalQueryFilter>? globalQueryFilters)
@@ -36,6 +38,7 @@ public class TenantContext : ITenantContext
         _efConfig = configuration.GetSection(SystemConstant.CONSTANT_COLAORM_SECTION).Get<ColaEfConfigOption>();
         _colaCache = colaCache;
         _colaException = colaException;
+        _colaConsole = colaConsole;
         SetDbClientByTenant(aopOnLogExecutingModels, aopOnErrorModels, globalQueryFilters);
     }
 
@@ -43,6 +46,8 @@ public class TenantContext : ITenantContext
     {
         var exceptionHelper = serviceProvider.GetService<IColaException>();
         if (exceptionHelper == null) throw new System.Exception("未注入 IColaException 类型");
+        var colaConsole = serviceProvider.GetService<IColaConsole>();
+        if (exceptionHelper == null) throw new System.Exception("未注入 IColaConsole 类型");
         if (configuration == null) throw new System.Exception("未注入 IConfiguration 类型");
         
         var tenantResolutionStrategy = serviceProvider.GetService<ITenantResolutionStrategy>();
@@ -65,7 +70,7 @@ public class TenantContext : ITenantContext
             var colaMemoryCache = serviceProvider.GetService<IColaMemoryCache>();
             colaCache  = colaMemoryCache ?? throw new System.Exception("未注入 IColaMemoryCache 类型");
         }
-        return new TenantContext(tenantResolutionStrategy, configuration, colaCache, exceptionHelper, aopOnLogExecutingModels, aopOnErrorModels, globalQueryFilters);
+        return new TenantContext(tenantResolutionStrategy, configuration, colaCache, exceptionHelper, colaConsole!, aopOnLogExecutingModels, aopOnErrorModels, globalQueryFilters);
     }
 
     public int? TenantId
@@ -111,8 +116,8 @@ public class TenantContext : ITenantContext
                 {
                     client.Aop.OnLogExecuting = (sql, parameters) =>
                     {
-                        ColaConsole.WriteInfo($"sql:\n\t{sql}");
-                        ColaConsole.WriteInfo("parameters is :");
+                        _colaConsole!.WriteInfo($"sql:\n\t{sql}");
+                        _colaConsole!.WriteInfo("parameters is :");
                         foreach (var parameter in parameters)
                         {
                             System.Console.WriteLine($"\tparameter name:{parameter.ParameterName}\tparameter value:{parameter.Value!}");
@@ -137,8 +142,8 @@ public class TenantContext : ITenantContext
                 {
                     client.Aop.OnError = exception =>
                     {
-                        ColaConsole.WriteException($"Sql Error:");
-                        ColaConsole.WriteException(JsonConvert.SerializeObject(exception).ToJsonFormatString());
+                        _colaConsole!.WriteException($"Sql Error:");
+                        _colaConsole!.WriteException(JsonConvert.SerializeObject(exception).ToJsonFormatString());
                     };
                 }
             }

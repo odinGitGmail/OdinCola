@@ -20,7 +20,8 @@ public static class SnowFlakeInject
         var opts = new SnowFlakeConfig();
         action(opts);
         services.AddSingleton<IColaSnowFlake>(new ColaSnowFlake(opts.DatacenterId, opts.WorkerId));
-        ColaConsole.WriteInfo("注入类型【 SnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 SnowFlake 】");
         return services;
     }
 
@@ -35,7 +36,8 @@ public static class SnowFlakeInject
         var snowFlakeConfig = config.GetSection(SystemConstant.CONSTANT_COLASNOWFLAKE_SECTION).Get<SnowFlakeConfig>();
         services.AddSingleton<IColaSnowFlake>(new ColaSnowFlake(snowFlakeConfig!.DatacenterId,
             snowFlakeConfig.WorkerId));
-        ColaConsole.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
         return services;
     }
 
@@ -50,7 +52,8 @@ public static class SnowFlakeInject
         long workId)
     {
         services.AddSingleton<IColaSnowFlake>(new ColaSnowFlake(datacenterId, workId));
-        ColaConsole.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
         return services;
     }
 
@@ -67,7 +70,8 @@ public static class SnowFlakeInject
         var opts = new SnowFlakeConfig();
         action(opts);
         services.AddTransient<IColaSnowFlake>(provider => new ColaSnowFlake(opts.DatacenterId, opts.WorkerId));
-        ColaConsole.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
         return services;
     }
 
@@ -82,7 +86,8 @@ public static class SnowFlakeInject
         var snowFlakeConfig = config.GetSection(SystemConstant.CONSTANT_COLASNOWFLAKE_SECTION).Get<SnowFlakeConfig>();
         services.AddTransient<IColaSnowFlake>(provider =>
             new ColaSnowFlake(snowFlakeConfig!.DatacenterId, snowFlakeConfig.WorkerId));
-        ColaConsole.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
         return services;
     }
 
@@ -97,7 +102,8 @@ public static class SnowFlakeInject
         long workId)
     {
         services.AddTransient<IColaSnowFlake>(provider => new ColaSnowFlake(datacenterId, workId));
-        ColaConsole.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
         return services;
     }
 
@@ -113,7 +119,8 @@ public static class SnowFlakeInject
         var opts = new SnowFlakeConfig();
         action(opts);
         services.AddScoped<IColaSnowFlake>(provider => new ColaSnowFlake(opts.DatacenterId, opts.WorkerId));
-        ColaConsole.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
         return services;
     }
 
@@ -128,7 +135,8 @@ public static class SnowFlakeInject
         var snowFlakeConfig = config.GetSection(SystemConstant.CONSTANT_COLASNOWFLAKE_SECTION).Get<SnowFlakeConfig>();
         services.AddScoped<IColaSnowFlake>(provider =>
             new ColaSnowFlake(snowFlakeConfig!.DatacenterId, snowFlakeConfig.WorkerId));
-        ColaConsole.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
         return services;
     }
 
@@ -143,7 +151,8 @@ public static class SnowFlakeInject
         long workId)
     {
         services.AddScoped<IColaSnowFlake>(provider => new ColaSnowFlake(datacenterId, workId));
-        ColaConsole.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaSnowFlake, ColaSnowFlake 】");
         return services;
     }
 }

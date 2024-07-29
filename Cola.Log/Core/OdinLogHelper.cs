@@ -59,7 +59,7 @@ public class OdinLogHelper : AbsOdinLogGenerate
     {
         if (_colaSnowFlake == null)
         {
-            ColaConsole.WriteException("IColaSnowFlake 未注入，无法生成雪花Id ");
+            System.Console.WriteLine("IColaSnowFlake 未注入，无法生成雪花Id ");
             throw new Exception("IColaSnowFlake 未注入，无法生成雪花Id ");
         }
 

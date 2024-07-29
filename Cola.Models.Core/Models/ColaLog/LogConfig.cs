@@ -1,7 +1,4 @@
-﻿using System.Data;
-using SqlSugar;
-
-namespace Cola.Models.Core.Models.ColaLog;
+﻿namespace Cola.Models.Core.Models.ColaLog;
 
 public class LogConfig
 {

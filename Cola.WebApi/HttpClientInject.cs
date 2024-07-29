@@ -69,7 +69,8 @@ public static class HttpClientInject
                 SetRequestHeaders(handler, clientConfig, defaultSettings);
                 return handler;
             });
-            ColaConsole.WriteInfo(
+            var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+            colaConsole!.WriteInfo(
                 $"注入类型【 HttpClient 】\tname: {clientConfig.ClientName}\t{(clientConfig.BaseUri.IsNullOrEmpty() ? "" : $"baseUri:{clientConfig.BaseUri}")}");
         }
 

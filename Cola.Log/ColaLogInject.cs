@@ -19,7 +19,8 @@ public static class ColaLogInject
         var logConfig = config.GetSection(SystemConstant.CONSTANT_COLALOGS_SECTION).Get<LogConfig>();
         var opts = new LogConfigOption { Config = logConfig };
         services.AddSingleton<IColaLogs>(provider => new ColaLogs(opts, services));
-        ColaConsole.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
         return services;
     }
 
@@ -30,7 +31,8 @@ public static class ColaLogInject
         var opts = new LogConfigOption();
         action(opts);
         services.AddSingleton<IColaLogs>(provider => new ColaLogs(opts, services));
-        ColaConsole.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
         return services;
     }
 
@@ -41,7 +43,8 @@ public static class ColaLogInject
         var logConfig = config.GetSection(SystemConstant.CONSTANT_COLALOGS_SECTION).Get<LogConfig>();
         var opts = new LogConfigOption { Config = logConfig };
         services.AddTransient<IColaLogs>(provider => new ColaLogs(opts, services));
-        ColaConsole.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
         return services;
     }
 
@@ -52,7 +55,8 @@ public static class ColaLogInject
         var opts = new LogConfigOption();
         action(opts);
         services.AddTransient<IColaLogs>(provider => new ColaLogs(opts, services));
-        ColaConsole.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
         return services;
     }
 
@@ -63,7 +67,8 @@ public static class ColaLogInject
         var logConfig = config.GetSection(SystemConstant.CONSTANT_COLALOGS_SECTION).Get<LogConfig>();
         var opts = new LogConfigOption { Config = logConfig };
         services.AddScoped<IColaLogs>(provider => new ColaLogs(opts, services));
-        ColaConsole.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
         return services;
     }
 
@@ -74,7 +79,8 @@ public static class ColaLogInject
         var opts = new LogConfigOption();
         action(opts);
         services.AddScoped<IColaLogs>(provider => new ColaLogs(opts, services));
-        ColaConsole.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        colaConsole!.WriteInfo("注入类型【 IColaLogs, ColaLogs 】");
         return services;
     }
 }

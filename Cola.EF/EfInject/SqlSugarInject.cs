@@ -81,16 +81,18 @@ public static class SqlSugarInject
         ValidateAopOnError(services, sqlSugarConfigLst, colaEfConfigOption, aopOnErrorModels);
 
         #endregion
-
+        var colaConsole = services.BuildServiceProvider().GetService<IColaConsole>();
+        
         InjectTenantResolutionStrategy(services, httpContextAccessor, configuration, colaEfConfigOption);
         if (sqlSugarConfigLst.Count > 0)
         {
             services.AddSingleton<ISqlSugarRepository>(SqlSugarRepository.Create);
-            ColaConsole.WriteInfo("注入类型【 ISqlSugarRepository, SqlSugarRepository 】");
+
+            colaConsole!.WriteInfo("注入类型【 ISqlSugarRepository, SqlSugarRepository 】");
         }
         else
         {
-            ColaConsole.WriteLine("SqlSugar配置不正确，无法类型【 ISqlSugarRepository, SqlSugarRepository 】", backgroundColor: ConsoleColor.DarkRed);
+            colaConsole!.WriteLine("SqlSugar配置不正确，无法类型【 ISqlSugarRepository, SqlSugarRepository 】", backgroundColor: ConsoleColor.DarkRed);
         }
 
         return services;
